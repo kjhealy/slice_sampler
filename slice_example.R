@@ -15,7 +15,7 @@ theme_set(theme_minimal())
 
 
 ### --------------------------------------------------
-### Slice sampling code adapted from Scott Lynch
+### Slice sampling code adapted from Scott Lynch's example
 ### --------------------------------------------------
 
 ## 3 component normal mixture distribution
@@ -35,8 +35,8 @@ sim <- tribble(
   ~ind, ~x, ~q, ~seg1, ~seg2, ~seg3, ~rtally, ~cands,
   seq_along(1:maxiter), 0, 0, # ind, x, q
   tibble(seg1_x0 = 0, seg1_y0 = 0, seg1_x1 = 0, seg1_y1 = 0), # seg1
-  tibble(seg2_x0 = 0, seg2_y0 = 0, seg2_x1 = 0, seg2_y1 = 0), # seg1
-  tibble(seg3_x0 = 0, seg3_y0 = 0, seg3_x1 = 0, seg3_y1 = 0), # seg1
+  tibble(seg2_x0 = 0, seg2_y0 = 0, seg2_x1 = 0, seg2_y1 = 0), # seg2
+  tibble(seg3_x0 = 0, seg3_y0 = 0, seg3_x1 = 0, seg3_y1 = 0), # seg3
   0, # rtally
   tibble(cands_i = 0) # cand
 ) %>% unnest(cols = c(ind))
@@ -109,6 +109,10 @@ for (i in 2:maxiter) {
   sim$cands[[i]] <- cands
   sim$x[i] <- cand
 }
+
+###--------------------------------------------------
+### Make some animations
+###--------------------------------------------------
 
 ## Fully unnest the sim tibble
 sim_exp <- sim %>%
